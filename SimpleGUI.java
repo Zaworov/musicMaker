@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class SimpleGUI implements ActionListener{
-    JButton button;
+    private JButton button;
 
     void generateInterface(){
         JFrame frame = new JFrame();
