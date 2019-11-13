@@ -8,6 +8,7 @@ class SimpleGUI {
     private JFrame frame;
     private int counter = 0;
 
+
     void generateInterface() {
         frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
