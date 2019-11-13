@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class SimpleGUI {
-    int x = 0;
-    int y = 0;
+    private int x = 0;
+    private int y = 0;
     private JButton colorButton, labelButton;
     private JFrame frame;
     private int counter = 0;
@@ -51,7 +51,6 @@ class SimpleGUI {
         public void actionPerformed(ActionEvent e) {
             counter++;
             labelButton.setText("PUSHED " + counter + " TIMES!");
-            frame.repaint();
         }
     }
 
@@ -59,15 +58,16 @@ class SimpleGUI {
         @Override
         protected void paintComponent(Graphics graphics) {
             graphics.fillRect(0, 0, this.getWidth(), this.getHeight()); //background
-            graphics.setColor(Color.green);
+            Color randomColor = getRandomColor();
+            graphics.setColor(randomColor);
             graphics.fillOval(x, y, 40, 40);
         }
-    }
 
-    public class GraphicElement extends JPanel {
-        @Override
-        protected void paintComponent(Graphics graphics) {
-
+        private Color getRandomColor() {
+            int red = (int) (Math.random() * 256);
+            int green = (int) (Math.random() * 256);
+            int blue = (int) (Math.random() * 256);
+            return new Color(red, green, blue);
         }
     }
 }
