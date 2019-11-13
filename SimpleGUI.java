@@ -13,7 +13,7 @@ class SimpleGUI {
         frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        colorButton = new JButton("Change color!");
+        colorButton = new JButton("Change color and position!");
         labelButton = new JButton("PUSH IT!");
         colorButton.addActionListener(new ColorListener());
         labelButton.addActionListener(new LabelListener());
