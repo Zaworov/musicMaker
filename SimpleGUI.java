@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class SimpleGUI implements ActionListener {
-    private JButton colorButton, textButton;
+class SimpleGUI {
+    private JButton colorButton, labelButton;
     private JFrame frame;
     private int counter = 0;
 
@@ -13,27 +13,32 @@ class SimpleGUI implements ActionListener {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         colorButton = new JButton("Change color!");
-        textButton = new JButton("PUSH IT!");
-        colorButton.addActionListener(this);
-        textButton.addActionListener(this);
+        labelButton = new JButton("PUSH IT!");
+        colorButton.addActionListener(new ColorListener());
+        labelButton.addActionListener(new LabelListener());
 
         GraphicPanel graphicPanel = new GraphicPanel();
 
         frame.getContentPane().add(BorderLayout.SOUTH, colorButton);
-        frame.getContentPane().add(BorderLayout.EAST, textButton);
+        frame.getContentPane().add(BorderLayout.EAST, labelButton);
         frame.getContentPane().add(BorderLayout.CENTER, graphicPanel);
         frame.setSize(300, 300);
         frame.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == colorButton) {
+    private class ColorListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
             colorButton.setText("Change again!");
             frame.repaint();
-        } else if (event.getSource() == textButton) {
+        }
+    }
+
+    private class LabelListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
             counter++;
-            textButton.setText("PUSHED " + counter + " TIMES!");
+            labelButton.setText("PUSHED " + counter + " TIMES!");
         }
     }
 }
