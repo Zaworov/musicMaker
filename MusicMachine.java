@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.NotNull;
-
 import javax.sound.midi.*;
 
 class MusicMachine {
@@ -28,10 +26,9 @@ class MusicMachine {
         }
     }
 
-    @NotNull
     private MidiEvent getNote(int commandNo) throws InvalidMidiDataException {
         ShortMessage messageA = new ShortMessage();
-        messageA.setMessage(commandNo, 1, 64, 100);
+        messageA.setMessage(commandNo, 1, 64, 100); // data1 -> pitch (1-127), data2 -> note length
         return new MidiEvent(messageA, 1);
     }
 
