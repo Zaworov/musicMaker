@@ -12,7 +12,7 @@ class MusicMachine {
             Sequence sequence = new Sequence(Sequence.PPQ, 4);
             Track track = sequence.createTrack();
 
-            changeInstrument(track, 13);
+            changeInstrument(track, instrument);
 
             MidiEvent startNote = getNote(NOTE_ON_COMMAND);
             MidiEvent endNote = getNote(NOTE_OFF_COMMAND);
