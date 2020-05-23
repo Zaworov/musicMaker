@@ -14,8 +14,8 @@ class MusicMachine {
 
             changeInstrument(track, instrument);
 
-            MidiEvent startNote = getNote(NOTE_ON_COMMAND);
-            MidiEvent endNote = getNote(NOTE_OFF_COMMAND);
+            MidiEvent startNote = createMidiEvent(NOTE_ON_COMMAND, 1, 64, 100, 1);
+            MidiEvent endNote = createMidiEvent(NOTE_OFF_COMMAND, 1, 64, 100, 4);
             track.add(startNote);
             track.add(endNote);
 
@@ -26,10 +26,14 @@ class MusicMachine {
         }
     }
 
-    private MidiEvent getNote(int commandNo) throws InvalidMidiDataException {
-        ShortMessage messageA = new ShortMessage();
-        messageA.setMessage(commandNo, 1, 64, 100); // data1 -> pitch (1-127), data2 -> note length
-        return new MidiEvent(messageA, 1);
+    private MidiEvent createMidiEvent(int commandNo, int channel, int data1, int data2, int beat) throws InvalidMidiDataException {
+        MidiEvent event = null;
+        try {
+            ShortMessage messageA = new ShortMessage();
+            messageA.setMessage(commandNo, channel, data1, data2); // data1 -> pitch (1-127), data2 -> note length for comman NOTE_ON and NOTE_OFF
+            event = new MidiEvent(messageA, beat);
+        } catch (Exception notCreated) {}
+        return event;
     }
 
     private void changeInstrument(Track track, int instrument) throws InvalidMidiDataException {
