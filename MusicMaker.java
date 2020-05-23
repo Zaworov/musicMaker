@@ -12,12 +12,12 @@ public class MusicMaker {
 //        int instrument = Integer.parseInt(args[0]);
         int instrument = 14;
 //        int note = Integer.parseInt(args[1]);
-        int note = 64;
+        int tempo = 220;
         SimpleGUI gui = new SimpleGUI();
         gui.generateInterface();
 
         MusicMachine musicMachine = new MusicMachine();
-        musicMachine.play(instrument, note);
+        musicMachine.play(instrument, tempo);
     }
 
 }

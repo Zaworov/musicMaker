@@ -4,7 +4,7 @@ class MusicMachine {
     private static final int NOTE_ON_COMMAND = 144;
     private static final int NOTE_OFF_COMMAND = 128;
 
-    void play(int instrument, int note) throws MidiUnavailableException {
+    void play(int instrument, int tempo) throws MidiUnavailableException {
         try {
             Sequencer sequencer = MidiSystem.getSequencer();
             sequencer.open();
@@ -12,26 +12,30 @@ class MusicMachine {
             Sequence sequence = new Sequence(Sequence.PPQ, 4);
             Track track = sequence.createTrack();
 
-            changeInstrument(track, instrument);
+            changeInstrument(track, instrument); //TODO Use createMidiEventHere
 
-            MidiEvent startNote = createMidiEvent(NOTE_ON_COMMAND, 1, 64, 100, 1);
-            MidiEvent endNote = createMidiEvent(NOTE_OFF_COMMAND, 1, 64, 100, 4);
-            track.add(startNote);
-            track.add(endNote);
+            for (int i = 1; i < 61; i+=4) {
+                MidiEvent startNote = createMidiEvent(NOTE_ON_COMMAND, 1, i, 100, i);
+                MidiEvent endNote = createMidiEvent(NOTE_OFF_COMMAND, 1, i, 100, i + 2);
+                track.add(startNote);
+                track.add(endNote);
+                System.out.println("ADDED");
+            }
 
             sequencer.setSequence(sequence);
+            sequencer.setTempoInBPM(tempo);
             sequencer.start();
         } catch (MidiUnavailableException | InvalidMidiDataException midiUnavailable) {
             midiUnavailable.printStackTrace();
         }
     }
 
-    private MidiEvent createMidiEvent(int commandNo, int channel, int data1, int data2, int beat) throws InvalidMidiDataException {
+    private MidiEvent createMidiEvent(int commandNo, int channel, int data1, int data2, int measure) throws InvalidMidiDataException {
         MidiEvent event = null;
         try {
             ShortMessage messageA = new ShortMessage();
             messageA.setMessage(commandNo, channel, data1, data2); // data1 -> pitch (1-127), data2 -> note length for comman NOTE_ON and NOTE_OFF
-            event = new MidiEvent(messageA, beat);
+            event = new MidiEvent(messageA, measure);
         } catch (Exception notCreated) {}
         return event;
     }
