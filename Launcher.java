@@ -4,7 +4,7 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 
-public class MusicMaker {
+public class Launcher {
 
     public static void main(String[] args) throws MidiUnavailableException {
 //        if (args.length < 2) throw new RuntimeException("You need to give at least two numerical arguments!");

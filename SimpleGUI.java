@@ -11,7 +11,8 @@ class SimpleGUI {
     private int counter = 0;
 
     void generateInterface() {
-        frame = new JFrame();
+        frame = new JFrame("My first music video!");
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         colorButton = new JButton("Change color and position!");
