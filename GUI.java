@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class SimpleGUI {
+class GUI {
     private int x = 0;
     private int y = 0;
     private JButton colorButton, labelButton;

@@ -1,8 +1,6 @@
 //package out;
 
 import javax.sound.midi.MidiUnavailableException;
-import javax.swing.*;
-import java.awt.*;
 
 public class Launcher {
 
@@ -13,7 +11,7 @@ public class Launcher {
         int instrument = 14;
 //        int note = Integer.parseInt(args[1]);
         int tempo = 220;
-        SimpleGUI gui = new SimpleGUI();
+        GUI gui = new GUI();
         gui.generateInterface();
 
         MusicMachine musicMachine = new MusicMachine();
