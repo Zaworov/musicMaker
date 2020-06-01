@@ -5,32 +5,31 @@ class MusicMachine implements ControllerEventListener {
     private static final int NOTE_OFF_COMMAND = 128;
     public static final int CONTROLLER_EVENT_COMMAND = 176;
 
-    void play(int instrument, int tempo) throws MidiUnavailableException {
+    void run(GUI gui, int instrument, int tempo) throws MidiUnavailableException {
         try {
             Sequencer sequencer = MidiSystem.getSequencer();
             sequencer.open();
-
-            int[] controlledEvents = {127};
-            sequencer.addControllerEventListener(this, controlledEvents);
-
+            sequencer.addControllerEventListener(gui.graphicPanel, new int[] {127});
             Sequence sequence = new Sequence(Sequence.PPQ, 4);
             Track track = sequence.createTrack();
 
             changeInstrument(track, instrument); //TODO Use createMidiEventHere
 
-            for (int i = 1; i < 61; i += 4) {
-                track.add(createMidiEvent(NOTE_ON_COMMAND, 1, i, 100, i));
+            int pitch;
+            for (int i = 1; i < 61; i += 2) {
+                pitch = (int) ((Math.random() * 50) + 1);
+                track.add(createMidiEvent(NOTE_ON_COMMAND, 1, pitch, 100, i));
                 track.add(createMidiEvent(CONTROLLER_EVENT_COMMAND, 1, 127, 0, i));
-                track.add(createMidiEvent(NOTE_OFF_COMMAND, 1, i, 100, i + 2));
+                track.add(createMidiEvent(NOTE_OFF_COMMAND, 1, pitch, 100, i + 2));
             }
 
-            play(tempo, sequencer, sequence);
+            run(tempo, sequencer, sequence);
         } catch (MidiUnavailableException | InvalidMidiDataException midiUnavailable) {
             midiUnavailable.printStackTrace();
         }
     }
 
-    private void play(int tempo, Sequencer sequencer, Sequence sequence) throws InvalidMidiDataException {
+    private void run(int tempo, Sequencer sequencer, Sequence sequence) throws InvalidMidiDataException {
         sequencer.setSequence(sequence);
         sequencer.setTempoInBPM(tempo);
         sequencer.start();
